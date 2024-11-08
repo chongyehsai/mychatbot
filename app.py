@@ -44,6 +44,6 @@ if st.button("Get Answer"):
         print(answer)
 
         # Display the answer
-        st.write("Answer:", answer)
+        st.write("Answer:", answer[0])
     else:
         st.write("Please enter a question.")
