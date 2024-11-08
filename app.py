@@ -7,7 +7,7 @@ from langchain_openai import OpenAIEmbeddings
 import os
 os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 # Initialize the language model and prompt template
-llm = ChatOpenAI(model='gpt-4', max_tokens=100)
+llm = ChatOpenAI(model='gpt-3.5-turbo')
 str_parser = StrOutputParser()
 template = (
     "Please answer the questions based on the following content and your own judgment:\n"
@@ -43,6 +43,6 @@ if st.button("Get Answer"):
         answer = llm(prompt.format(**inputs))
 
         # Display the answer
-        st.write("Answer:", answer[content])
+        st.write("Answer:", answer['content'])
     else:
         st.write("Please enter a question.")
