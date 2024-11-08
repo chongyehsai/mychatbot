@@ -42,9 +42,7 @@ if st.button("Get Answer"):
         inputs = {"context": context_texts, "question": question}
         answer = llm(prompt.format(**inputs))
         
-
         # Display the answer
-        st.write("Answer:", answer)
-        st.write("Answer:", print(answer))
+        st.write("Answer:", answer.content)
     else:
         st.write("Please enter a question.")
