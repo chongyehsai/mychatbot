@@ -43,6 +43,6 @@ if st.button("Get Answer"):
         answer = llm(prompt.format(**inputs))
 
         # Display the answer
-        st.write("Answer:", answer)
+        st.write("Answer:", answer[content])
     else:
         st.write("Please enter a question.")
