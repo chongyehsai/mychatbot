@@ -4,7 +4,8 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
-
+import os
+os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 # Initialize the language model and prompt template
 llm = ChatOpenAI(model='gpt-4', max_tokens=100)
 str_parser = StrOutputParser()
