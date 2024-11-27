@@ -18,6 +18,15 @@ with col1:
 with col2:
     st.title("EduNavigator")  # Title beside the logo
 
+# Welcome message
+st.write("""
+# Welcome to EduNavigator AI Assistant.
+
+Do you want to learn about how LLM can be used to develop AI applications?
+
+You can ask anything related to that here.
+""")
+
 # Initialize the language model and prompt template
 llm = ChatOpenAI(model='gpt-4o')
 str_parser = StrOutputParser()
