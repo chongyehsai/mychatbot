@@ -47,11 +47,12 @@ try:
 except Exception as e:
     st.write("Error initializing FAISS retrievers:", e)
 
-# User input for the question
-question = st.text_input("Ask me anything:")
+# Form to handle "Enter to run"
+with st.form("qa_form"):
+    question = st.text_input("Ask me anything:")
+    submitted = st.form_submit_button("Submit")  # Allows pressing "Enter" to trigger
 
-# Process user input when button is clicked
-if st.button("Get Answer"):
+if submitted:
     if question and retrievers:
         try:
             with st.spinner("Retrieving information..."):
