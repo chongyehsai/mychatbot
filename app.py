@@ -11,7 +11,7 @@ import os
 os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 
 # Add a logo to the app
-st.set_page_config(page_title="EduNavigator Q&A", page_icon="EduNavigator Logo.png")
+st.set_page_config(page_title="EduNavigator Q&A", page_icon="EduNavigator Logo.PNG")
 col1, col2 = st.columns([1, 6])  # Adjust proportions to position the logo
 with col1:
     st.image("EduNavigator Logo.png", use_column_width=True)  # Display the logo
