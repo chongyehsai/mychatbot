@@ -65,7 +65,7 @@ retriever_map = RunnableMap({
 })
 
 chain = (
-    {"context": retriever_map, "question": RunnablePassthrough()}
+    {"context": RunnablePassthrough() | retriever_map, "question": RunnablePassthrough()}
     | prompt
     | llm
     | str_parser
@@ -76,7 +76,7 @@ if st.button("Get Answer"):
     if question:
         try:
             # Run the chain to retrieve and answer the question
-            result = chain.invoke({"context": question})
+            result = chain.invoke({"context": question, "question": question})
             
             # Display the answer
             st.write("Answer:", result)
