@@ -46,7 +46,6 @@ try:
                 embeddings=embeddings,
                 allow_dangerous_deserialization=True
             ).as_retriever()
-            st.write(f"Loaded {source_name} index successfully.")
         except Exception as e:
             st.write(f"Error loading {source_name} index:", e)
 except Exception as e:
