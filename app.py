@@ -14,7 +14,7 @@ os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 st.title("LangChain LLM Q&A with Multiple Data Sources")
 
 # Initialize the language model and prompt template
-llm = ChatOpenAI(model='gpt-3.5-turbo')
+llm = ChatOpenAI(model='gpt-4o')
 str_parser = StrOutputParser()
 template = (
     "Please answer the questions based on the following content and your own judgment:\n"
