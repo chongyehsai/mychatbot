@@ -56,7 +56,7 @@ try:
 except Exception as e:
     st.write("Error loading FAISS indexes:", e)
 
-# Create retriever map and chain
+# Create retriever map
 retriever_map = RunnableMap({
     "youtube": youtube_retriever,
     "website": website_retriever,
@@ -64,8 +64,9 @@ retriever_map = RunnableMap({
     "pptx": pptx_retriever,
 })
 
+# Adjust the chain to pass the question directly as text
 chain = (
-    {"context": RunnablePassthrough() | retriever_map, "question": RunnablePassthrough()}
+    {"context": RunnableMap({"retrieved_docs": retriever_map}), "question": RunnablePassthrough()}
     | prompt
     | llm
     | str_parser
@@ -76,6 +77,7 @@ if st.button("Get Answer"):
     if question:
         try:
             # Run the chain to retrieve and answer the question
+            # Ensure the question is passed as a string to the retrievers
             result = chain.invoke({"context": question, "question": question})
             
             # Display the answer
