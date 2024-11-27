@@ -19,8 +19,8 @@ with col2:
     st.title("EduNavigator")  # Title beside the logo
 
 # Welcome message
-st.write("""
-# Welcome to EduNavigator AI Assistant.
+st.markdown("""
+### Welcome to EduNavigator AI Assistant.
 
 Do you want to learn about how LLM can be used to develop AI applications?
 
