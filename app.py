@@ -62,7 +62,7 @@ except Exception as e:
 
 # Form to handle "Enter to run"
 with st.form("qa_form"):
-    question = st.text_input("Ask me anything:")
+    question = st.text_input("**Ask me anything:**")  # Made the label bold using Markdown syntax
     submitted = st.form_submit_button("Submit")  # Allows pressing "Enter" to trigger
 
 if submitted:
