@@ -27,27 +27,26 @@ st.title("LangChain LLM Q&A with Multiple Data Sources")
 question = st.text_input("Ask me anything:")
 
 # Load FAISS indexes
-retrievers = {}
 try:
     embeddings = OpenAIEmbeddings()
 
     # Load FAISS databases for each data source
-    retrievers['youtube'] = FAISS.load_local(
+    youtube_retriever = FAISS.load_local(
         folder_path="youtube",
         embeddings=embeddings,
         allow_dangerous_deserialization=True
     ).as_retriever()
-    retrievers['website'] = FAISS.load_local(
+    website_retriever = FAISS.load_local(
         folder_path="website",
         embeddings=embeddings,
         allow_dangerous_deserialization=True
     ).as_retriever()
-    retrievers['pdf'] = FAISS.load_local(
+    pdf_retriever = FAISS.load_local(
         folder_path="PDF",
         embeddings=embeddings,
         allow_dangerous_deserialization=True
     ).as_retriever()
-    retrievers['pptx'] = FAISS.load_local(
+    pptx_retriever = FAISS.load_local(
         folder_path="pptx",
         embeddings=embeddings,
         allow_dangerous_deserialization=True
@@ -57,26 +56,31 @@ try:
 except Exception as e:
     st.write("Error loading FAISS indexes:", e)
 
+# Create retriever map and chain
+retriever_map = RunnableMap({
+    "youtube": youtube_retriever,
+    "website": website_retriever,
+    "pdf": pdf_retriever,
+    "pptx": pptx_retriever,
+})
+
+chain = (
+    {"context": retriever_map, "question": RunnablePassthrough()}
+    | prompt
+    | llm
+    | str_parser
+)
+
 # Process user input when button is clicked
 if st.button("Get Answer"):
-    if question and retrievers:
+    if question:
         try:
-            # Create a RunnableMap to handle retrieval from all sources
-            retriever_map = RunnableMap(retrievers)
-            
-            # Retrieve context relevant to the question
-            contexts = retriever_map.invoke({"input": question})
-            combined_contexts = "\n".join([f"Source: {source}\n{data.page_content}" 
-                                           for source, results in contexts.items() 
-                                           for data in results])
-            
-            # Format and retrieve the answer from the LLM
-            inputs = {"context": combined_contexts, "question": question}
-            answer = llm(prompt.format(**inputs))
+            # Run the chain to retrieve and answer the question
+            result = chain.invoke({"context": question})
             
             # Display the answer
-            st.write("Answer:", answer.content)
+            st.write("Answer:", result)
         except Exception as e:
             st.write("Error during retrieval or processing:", e)
     else:
-        st.write("Please enter a question and ensure all retrievers are loaded.")
+        st.write("Please enter a question.")
