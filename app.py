@@ -16,7 +16,7 @@ col1, col2 = st.columns([1, 6])  # Adjust proportions to position the logo
 with col1:
     st.image("EduNavigator Logo.PNG", use_column_width=True)  # Display the logo
 with col2:
-    st.title("LangChain LLM Q&A with Multiple Data Sources")  # Title beside the logo
+    st.title("EduNavigator")  # Title beside the logo
 
 # Initialize the language model and prompt template
 llm = ChatOpenAI(model='gpt-4o')
