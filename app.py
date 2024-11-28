@@ -28,7 +28,7 @@ You can ask anything related to that here.
 """)
 
 # Initialize the language model and prompt template
-llm = ChatOpenAI(model='gpt-4o')
+llm = ChatOpenAI(model='gpt-4o', temperature = 0)
 str_parser = StrOutputParser()
 template = (
     "Please answer the questions based on the following content and your own judgment:\n"
