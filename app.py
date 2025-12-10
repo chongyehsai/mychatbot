@@ -7,8 +7,6 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_core.runnables import RunnableMap
 import os
 
-123
-
 # Initialize environment variables
 os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 
@@ -99,4 +97,3 @@ if submitted:
             st.write("Error during retrieval or processing:", e)
     else:
         st.write("Please enter a question and ensure all retrievers are loaded.")
-
